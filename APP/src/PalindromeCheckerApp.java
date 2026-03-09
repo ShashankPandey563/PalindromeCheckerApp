@@ -1,42 +1,45 @@
 /**
  * ============================================================
- * MAIN CLASS - UseCase5PalindromeCheckerApp
+ * MAIN CLASS - UseCase7PalindromeCheckerApp
  * ============================================================
  *
- * Use Case 5: Stack Based Palindrome Checker (Hardcoded)
+ * Use Case 7: Deque Based Optimized Palindrome Checker (Hardcoded)
  *
  * Description:
- * This class validates a palindrome using a Stack
- * data structure which follows the LIFO principle.
+ * This class validates a palindrome using a Deque
+ * (Double Ended Queue).
  *
- * At this stage, the application:
- * - Pushes characters into a stack
- * - Pops them in reverse order
- * - Compares with original sequence
- * - Displays the result
+ * Characters are inserted into the deque and then
+ * compared by removing elements from both ends:
+ * - removeFirst()
+ * - removeLast()
  *
- * This maps stack behavior to reversal logic.
+ * This avoids reversing the string and provides
+ * efficient bidirectional comparison.
  *
  * @author Shashank
- * @version 5.0
+ * @version 7.0
  */
 
-import java.util.Stack;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class PalindromeCheckerApp {
+
     /**
-     * Application entry point for UC5.
+     * Application entry point for UC7.
      */
     public static void main(String[] args) {
-        String input = "noon";
-        Stack<Character> stack = new Stack<>();
+        String input = "refer";
+        Deque<Character> deque = new ArrayDeque<>();
         for (char c : input.toCharArray()) {
-            stack.push(c);
+            deque.addLast(c);
         }
         boolean isPalindrome = true;
-        for (char c : input.toCharArray()) {
-            char popped = stack.pop();
-            if (c != popped) {
+        while (deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+            if (first != last) {
                 isPalindrome = false;
                 break;
             }
