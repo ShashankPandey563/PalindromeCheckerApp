@@ -1,57 +1,69 @@
 /**
  * ==============================================================
- * MAIN CLASS - UseCase9PalindromeCheckerApp
+ * MAIN CLASS - UseCase11PalindromeCheckerApp
  * ==============================================================
  *
- * Use Case 9: Recursive Palindrome Checker
+ * Use Case 11: Object-Oriented Palindrome Service
  *
  * Description:
- * This class validates a palindrome using recursion.
- * Characters are compared from the outer positions
- * moving inward using recursive calls.
+ * This class demonstrates palindrome validation using
+ * object-oriented design.
  *
- * The recursion stops when:
- * - All characters are matched, or
- * - A mismatch is found.
+ * The palindrome logic is encapsulated inside a
+ * PalindromeService class.
  *
- * This use case demonstrates divide-and-conquer
- * logic using method recursion.
- *
- * @author Shashank
- * @version 9.0
+ * This improves:
+ * - Reusability
+ * - Readability
+ * - Separation of concerns
  */
 
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC9.
-     * @param args Command-line arguments
+     * Application entry point for UC11.
      */
     public static void main(String[] args) {
 
         // Hardcoded input
-        String input = "madam";
+        String input = "racecar";
 
-        boolean result = check(input, 0, input.length() - 1);
+        // Create service object
+        PalindromeService service = new PalindromeService();
+
+        // Call palindrome check
+        boolean result = service.checkPalindrome(input);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
     }
+}
 
+/**
+ * Service class that contains palindrome logic
+ */
+class PalindromeService {
 
-    private static boolean check(String s, int start, int end) {
+    /**
+     * Checks whether the input string is a palindrome
+     */
+    public boolean checkPalindrome(String input) {
 
-        // Base condition
-        if (start >= end) {
-            return true;
+        // Initialize pointers
+        int start = 0;
+        int end = input.length() - 1;
+
+        // Compare characters moving inward
+        while (start < end) {
+
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+
+            start++;
+            end--;
         }
 
-        // If characters don't match
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-        // Recursive call
-        return check(s, start + 1, end - 1);
+        return true;
     }
 }
